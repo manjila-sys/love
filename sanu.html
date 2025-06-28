@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To My Love</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+    body {
+      font-family:'Roboto',sans-serif;
+      background: #000;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+      text-align: center;
+      padding: 30px;
+    }
+    @keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+
+    .open-heart {
+      font-size: 3rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+      z-index: 10;
+      position: relative;
+      color: #ff5c8a;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .surprise {
+        padding-bottom: 40vh;
+      display: none;
+      opacity: 0;
+      transition: all 1s ease;
+    }
+    .surprise.show {
+      display: block;
+      opacity: 1;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      background: url('https://raw.githubusercontent.com/Klemen1337/animated-stars-background/main/stars.png') repeat;
+      animation: moveBg 60s linear infinite;
+      opacity: 0.4;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes moveBg {
+      from { transform: translate(0, 0); }
+      to { transform: translate(-500px, -1000px); }
+    }
+
+    .sparkle {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(#fff, transparent);
+      border-radius: 50%;
+      animation: sparkleAnim 4s infinite;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    @keyframes sparkleAnim {
+      0% { transform: scale(0.5) translateY(0); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: scale(1.5) translateY(-100vh); opacity: 0; }
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 1.5rem;
+      color: red;
+      animation: floatUp 8s ease-in infinite;
+      pointer-events: none;
+      opacity: 0.7;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.3); opacity: 0; }
+    }
+
+    .shooting-star {
+      position: fixed;
+      top: -10vh;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(230deg,#fff,transparent);
+      opacity: 0.85;
+      transform: rotate(45deg);
+      pointer-events: none;
+      z-index: 1;
+      animation: fallStar var(--dur, 2s) linear forwards, fadeStar var(--dur, 2s) ease-out forwards;
+    }
+
+    @keyframes fallStar {
+      to { transform: translate(-20vw, 110vh) rotate(45deg); }
+    }
+
+    @keyframes fadeStar {
+      0% { opacity: 0.9; }
+      90% { opacity: 0.2; }
+      100% { opacity: 0; }
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
+      margin: 1rem 0;
+      color: #ffe6f2;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .love-pic {
+  max-width: 80%;
+  margin: 1rem 0;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 192, 203, 0.4);
+  transition: transform 0.3s ease;
+}
+.love-pic:hover {
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+
+    .love-letter {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: rgba(255,255,255,0.07);
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      color: #fff;
+      z-index: 2;
+      white-space: pre-line;
+      overflow: hidden;
+    }
+
+    .love-letter h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ffcce0;
+    }
+.letter-text {
+  font-size: 1.3rem;
+  white-space: pre-wrap;
+  line-height: 1.8;
+  max-width: 100%;
+  text-align: left;
+  margin-top: 1rem;
+  opacity: 1;
+}
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    /* Hidden audio player */
+    audio {
+      display: none;
+    }
+    
+
+  </style>
+</head>
+
+<body>
+
+  <!-- 💗 Click Me Heart -->
+  <button class="open-heart" onclick="revealSurprise()">💗 Click Me</button>
+
+  <!-- 🌌 Surprise Section -->
+  <div class="surprise" id="surpriseSection">
+
+    <div class="stars" aria-hidden="true"></div>
+
+    <h1>Hi Sanu Kale 💖</h1>
+    <p>
+      You are my star, my sky, my every dream come true.<br>
+      I made this space to remind you how much I love you. 🌌
+    </p>
+
+    <section class="love-letter">
+      <h2>I love you💖🔐</h2>
+    <p class="letter-text" id="animatedText">
+  My love, From the moment you entered my life, everything felt softer, warmer, and more beautiful.
+  You are the peace in my chaos, the light in my darkness, and the melody that plays in the quiet corners of my heart.
+  Every time I look at you, I fall all over again — not just for who you are, but for the way you make me feel:
+  safe, seen, and endlessly loved🌙✨❤️.
+  If I could, I would wrap every heartbeat into a whisper that says:
+  I love you — more than words, more than time, more than forever.
+Forever Yours;
+Kali🌙✨❤️
+</p>
+</section>
+<!-- 💞 Click Again Button -->
+<button id="showPhotoBtn" style="
+  background-color: #ff80ab;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 2rem;
+  box-shadow: 0 4px 10px rgba(255, 128, 171, 0.3);
+  transition: all 0.3s ease;
+">
+  💞 Click Again
+</button>
+<div id="lovePhotos" style="
+  display: none;
+  margin-top: 2rem;
+  text-align: center;
+  animation: fadeIn 1.5s ease forwards;
+">
+
+  <img src="him/1.jpg" alt="Us 1" class="love-pic" />
+  <img src="him/2.jpg" alt="Us 2" class="love-pic" />
+  <img src="him/3.jpg" alt="Us 3" class="love-pic" />
+
+  <p style="color: #ffcce0; font-family: 'Dancing Script', cursive; font-size: 1.3rem; margin-top: 1rem;">
+    Every moment with you is my favorite memory 💖
+  </p>
+</div>
+
+
+
+    <!-- 🎵 Hidden Audio -->
+    <audio id="bgMusic" src="song/s.mp3" loop autoplay></audio>
+
+  </div>
+<script>
+  function revealSurprise () {
+    // 1. show the hidden section
+    document.getElementById('surpriseSection')
+            .classList.add('show');
+
+    // 2. hide the button so it can’t be clicked again
+    document.querySelector('.open-heart').style.display = 'none';
+
+    // 3. play music (if present)
+    const music = document.getElementById('bgMusic');
+    if (music) music.play();
+
+    // 4. (optional) start any animations you set up
+    startStarsAndHearts();
+    revealLoveLetterWords();
+  }
+
+  function startStarsAndHearts () {
+    // shooting stars
+    setInterval(() => {
+      const s = document.createElement('span');
+      s.className = 'shooting-star';
+      s.style.left = Math.random()*90 + 5 + 'vw';
+      s.style.setProperty('--dur', (Math.random()*1.2 + 1.6) + 's');
+      document.body.appendChild(s);
+      s.addEventListener('animationend', () => s.remove());
+    }, 1200);
+
+    // floating hearts
+    const emojis = ['❤️','💖','💕','💘','❣️'];
+    setInterval(() => {
+      const h = document.createElement('div');
+      h.className = 'floating-heart';
+      h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.fontSize = Math.random()*16 + 20 + 'px';
+      h.style.animationDuration = (Math.random()*3 + 6) + 's';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 8000);
+    }, 600);
+  }
+
+  /* word‑by‑word letter reveal */
+  function revealLoveLetterWords () {
+    const el = document.getElementById('animatedText');
+    if (!el) return;
+    const words = el.innerText.trim().split(' ');
+    el.innerHTML = '';
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < words.length) {
+        el.innerHTML += words[i] + ' ';
+        i++;
+      } else {
+        clearInterval(timer);
+      }
+    }, 180);   // speed per word
+  }
+</script>
+<script>
+  // ... your other functions like revealSurprise()
+
+  // Reveal photo on click
+  document.getElementById("showPhotoBtn").addEventListener("click", function () {
+    const photoDiv = document.getElementById("lovePhotos");
+    photoDiv.style.display = "block";
+    this.style.display = "none"; // hide the button after it's clicked
+  });
+</script>
+
+ 
+</body>
+</html>
